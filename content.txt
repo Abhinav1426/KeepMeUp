@@ -1,14 +1,83 @@
--- Find top spenders by month
-SELECT
-    DATE_TRUNC('month', o.created_at) AS month,
-    c.name,
-    SUM(o.total_cents) / 100.0 AS revenue
-FROM orders o
-JOIN customers c ON c.id = o.customer_id
-WHERE o.status = 'completed'
-GROUP BY 1, 2
-ORDER BY month DESC, revenue DESC
-LIMIT 100;
+The quick brown fox jumps over the lazy dog. Pack my box with five dozen
+liquor jugs. How vexingly quick daft zebras jump! The five boxing wizards
+jump quickly. Sphinx of black quartz, judge my vow. A wizard's job is to
+vex chumps quickly in fog.
+
+
+Project status update — week in review
+
+Overall things are on track. The main milestone for this sprint was the new
+onboarding flow, and that shipped on schedule with no major regressions. A few
+smaller items slipped to next week, but nothing that blocks the release.
+
+Highlights:
+- Finished the onboarding redesign and rolled it out to all users.
+- Cleared the backlog of high-priority bug reports from last month.
+- Started early research on the reporting dashboard for next quarter.
+
+Risks and follow-ups:
+- We still need design sign-off on the settings page before we can build it.
+- The third-party API has been slow this week; we are monitoring it closely.
+- Documentation is lagging behind the code and should be caught up soon.
+
+
+Meeting notes
+
+Attendees discussed the roadmap for the next two quarters and agreed on three
+priorities: improving reliability, reducing load times, and making the product
+easier to learn for first-time users. Everyone agreed that small, steady
+improvements beat large risky rewrites. Action items were assigned and we will
+review progress at the end of the month.
+
+
+To-do list for today
+1. Reply to outstanding emails and clear the inbox.
+2. Review the latest pull requests and leave feedback.
+3. Write the summary for tomorrow's stand-up meeting.
+4. Update the shared spreadsheet with this week's numbers.
+5. Take a short break and step away from the screen for a while.
+
+
+Dear team,
+
+Thank you all for the hard work over the past few weeks. We hit our goals for
+the quarter, and that is a direct result of everyone pulling in the same
+direction. Please take some time to rest and recharge. Next week we will kick
+off planning for the upcoming release, and I am looking forward to hearing your
+ideas. As always, feel free to reach out if there is anything you need.
+
+Best regards,
+The Team
+
+
+A few thoughts on writing well. Good writing is clear before it is clever. Short
+sentences are easier to follow than long ones. Prefer simple words over fancy
+ones, and cut anything that does not earn its place. Read your draft out loud and
+you will hear the parts that need fixing. Above all, respect the reader's time.
+
+
+Notes on planning a trip
+
+Start by deciding on the dates and the budget, since everything else depends on
+those two things. Next, book the flights early, because prices tend to climb as
+the date gets closer. Choose a place to stay that is close to the things you
+actually want to do, and read recent reviews before you commit. Leave room in
+the schedule for rest; a trip packed too tightly stops being a vacation.
+
+
+The history of the printing press is a story about access to ideas. Before it
+existed, books were copied by hand, which made them rare and expensive. Once
+printing became practical, the cost of a book fell dramatically, and reading
+spread far beyond the wealthy few. Knowledge that had been locked away slowly
+became something ordinary people could hold in their hands.
+
+
+Quick reminders for a productive day:
+- Drink a glass of water when you first sit down.
+- Tackle the hardest task while your focus is fresh.
+- Turn off notifications during deep work.
+- Stand up and stretch once an hour.
+- Write tomorrow's plan before you log off.
 
 
 def merge_sort(arr):
@@ -18,33 +87,6 @@ def merge_sort(arr):
     left = merge_sort(arr[:mid])
     right = merge_sort(arr[mid:])
     return merge(left, right)
-
-
-def merge(left, right):
-    result, i, j = [], 0, 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result
-
-
--- Find top spenders by month
-SELECT
-    DATE_TRUNC('month', o.created_at) AS month,
-    c.name,
-    SUM(o.total_cents) / 100.0 AS revenue
-FROM orders o
-JOIN customers c ON c.id = o.customer_id
-WHERE o.status = 'completed'
-GROUP BY 1, 2
-ORDER BY month DESC, revenue DESC
-LIMIT 100;
 
 
 async function fetchWithRetry(url, options = {}, retries = 3) {
@@ -61,43 +103,7 @@ async function fetchWithRetry(url, options = {}, retries = 3) {
 }
 
 
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-    return merge(left, right)
-
-
-def merge(left, right):
-    result, i, j = [], 0, 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result
-
-
-def fibonacci(n):
-    if n < 2:
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-
-def fib_iter(n):
-    a, b = 0, 1
-    for _ in range(n):
-        a, b = b, a + b
-    return a
-
-
--- Find top spenders by month
+-- monthly revenue by customer
 SELECT
     DATE_TRUNC('month', o.created_at) AS month,
     c.name,
@@ -110,177 +116,7 @@ ORDER BY month DESC, revenue DESC
 LIMIT 100;
 
 
-async function fetchWithRetry(url, options = {}, retries = 3) {
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      const res = await fetch(url, options);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return await res.json();
-    } catch (err) {
-      if (attempt === retries) throw err;
-      await new Promise(r => setTimeout(r, 2 ** attempt * 100));
-    }
-  }
-}
-
-
--- Find top spenders by month
-SELECT
-    DATE_TRUNC('month', o.created_at) AS month,
-    c.name,
-    SUM(o.total_cents) / 100.0 AS revenue
-FROM orders o
-JOIN customers c ON c.id = o.customer_id
-WHERE o.status = 'completed'
-GROUP BY 1, 2
-ORDER BY month DESC, revenue DESC
-LIMIT 100;
-
-
-const debounce = (fn, wait = 300) => {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(this, args), wait);
-  };
-};
-
-
-from dataclasses import dataclass, field
-from typing import List, Optional
-
-
-@dataclass
-class User:
-    id: int
-    name: str
-    email: str
-    roles: List[str] = field(default_factory=list)
-
-    def has_role(self, role: str) -> bool:
-        return role in self.roles
-
-
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-    return merge(left, right)
-
-
-def merge(left, right):
-    result, i, j = [], 0, 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result
-
-
-def fibonacci(n):
-    if n < 2:
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-
-def fib_iter(n):
-    a, b = 0, 1
-    for _ in range(n):
-        a, b = b, a + b
-    return a
-
-
--- Find top spenders by month
-SELECT
-    DATE_TRUNC('month', o.created_at) AS month,
-    c.name,
-    SUM(o.total_cents) / 100.0 AS revenue
-FROM orders o
-JOIN customers c ON c.id = o.customer_id
-WHERE o.status = 'completed'
-GROUP BY 1, 2
-ORDER BY month DESC, revenue DESC
-LIMIT 100;
-
-
-const debounce = (fn, wait = 300) => {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(this, args), wait);
-  };
-};
-
-
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-    return merge(left, right)
-
-
-def merge(left, right):
-    result, i, j = [], 0, 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result
-
-
-const debounce = (fn, wait = 300) => {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(this, args), wait);
-  };
-};
-
-
-def fibonacci(n):
-    if n < 2:
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-
-def fib_iter(n):
-    a, b = 0, 1
-    for _ in range(n):
-        a, b = b, a + b
-    return a
-
-
-class LRUCache:
-    def __init__(self, capacity: int):
-        from collections import OrderedDict
-        self.capacity = capacity
-        self.cache = OrderedDict()
-
-    def get(self, key):
-        if key not in self.cache:
-            return -1
-        self.cache.move_to_end(key)
-        return self.cache[key]
-
-    def put(self, key, value):
-        if key in self.cache:
-            self.cache.move_to_end(key)
-        self.cache[key] = value
-        if len(self.cache) > self.capacity:
-            self.cache.popitem(last=False)
-
-
+Some closing thoughts. Progress is rarely a straight line. Most worthwhile things
+are built slowly, through ordinary effort repeated day after day. Be patient with
+the process, stay curious, and keep showing up. The small habits you keep are the
+ones that shape the results you get.

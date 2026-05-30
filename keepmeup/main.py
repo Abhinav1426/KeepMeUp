@@ -24,7 +24,15 @@ from keepmeup.views import MainWindow
 
 
 def bundled_content_path() -> str:
-    """The content.txt that ships next to the project (one dir above package)."""
+    """The content.txt that ships with the app.
+
+    When frozen by PyInstaller the file is unpacked into the bundle root
+    (``sys._MEIPASS``); when running from source it lives one dir above the
+    package.
+    """
+    if getattr(sys, "frozen", False):
+        base = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+        return os.path.join(base, "content.txt")
     here = os.path.dirname(os.path.abspath(__file__))
     return os.path.normpath(os.path.join(here, "..", "content.txt"))
 

@@ -21,4 +21,11 @@ config.json
 # PyInstaller build artifacts
 build/
 dist/
+# keep the checked-in cross-platform build spec
 *.spec
+!KeepMeUp.spec
+
+# Release folder: keep the published binaries + notes, ignore stray local builds
+release/*
+!release/README.md
+!release/KeepMeUp-1.0.0-windows.exe

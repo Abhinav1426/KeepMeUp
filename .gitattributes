@@ -1,0 +1,8 @@
+# Keep shell scripts LF so they run on macOS/Linux regardless of host OS.
+*.sh text eol=lf
+
+# Windows batch files stay CRLF.
+*.bat text eol=crlf
+
+# Treat the bundled binary as binary (no EOL conversion / diffing).
+*.exe binary

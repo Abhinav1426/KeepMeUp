@@ -1,0 +1,104 @@
+name: Build & Release
+
+# Builds native binaries for Windows, macOS and Linux and publishes them as
+# downloadable assets on a GitHub Release.
+#
+# Trigger by pushing a version tag:
+#     git tag v1.0.0
+#     git push origin v1.0.0
+#
+# ...or run manually from the Actions tab (workflow_dispatch).
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: KeepMeUp-1.0.0-windows.exe
+          - os: macos-latest
+            artifact: KeepMeUp-1.0.0-macos.zip
+          - os: ubuntu-latest
+            artifact: KeepMeUp-1.0.0-linux.tar.gz
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Qt/PySide6 needs a few system libs to bundle correctly on Linux.
+      - name: Install Linux system deps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libxkbcommon0 libxcb-cursor0
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: Build with PyInstaller
+        run: pyinstaller --noconfirm --clean KeepMeUp.spec
+
+      # --- Package each platform's output under the release name --------------
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          New-Item -ItemType Directory -Force release | Out-Null
+          Copy-Item dist/KeepMeUp.exe "release/${{ matrix.artifact }}"
+        shell: pwsh
+
+      - name: Package (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p release
+          ( cd dist && ditto -c -k --sequesterRsrc --keepParent KeepMeUp.app "../release/${{ matrix.artifact }}" )
+
+      - name: Package (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p release
+          cp dist/KeepMeUp "release/KeepMeUp-1.0.0-linux"
+          chmod +x "release/KeepMeUp-1.0.0-linux"
+          tar -czf "release/${{ matrix.artifact }}" -C release "KeepMeUp-1.0.0-linux"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: release/${{ matrix.artifact }}
+
+  release:
+    name: Publish Release
+    needs: build
+    runs-on: ubuntu-latest
+    # Only publish a Release when triggered by a tag push.
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist-artifacts
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: KeepMeUp ${{ github.ref_name }}
+          files: dist-artifacts/*
+          generate_release_notes: true
