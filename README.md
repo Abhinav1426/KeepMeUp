@@ -54,7 +54,6 @@ latest binaries for all three platforms are on the
 | 🍎 **macOS** (Apple Silicon / Intel) | `KeepMeUp-1.0.0-macos.zip` | Unzip → drag `KeepMeUp.app` to Applications → **right-click → Open** the first time. Grant **Accessibility** permission so it can move the mouse/type. |
 | 🐧 **Linux** (x64) | `KeepMeUp-1.0.0-linux.tar.gz` | `tar -xzf KeepMeUp-1.0.0-linux.tar.gz` then `./KeepMeUp-1.0.0-linux` (needs an X11/Wayland desktop). |
 
-The Windows `.exe` is also committed under [`release/`](release/) for convenience.
 
 ---
 
