@@ -1,0 +1,286 @@
+-- Find top spenders by month
+SELECT
+    DATE_TRUNC('month', o.created_at) AS month,
+    c.name,
+    SUM(o.total_cents) / 100.0 AS revenue
+FROM orders o
+JOIN customers c ON c.id = o.customer_id
+WHERE o.status = 'completed'
+GROUP BY 1, 2
+ORDER BY month DESC, revenue DESC
+LIMIT 100;
+
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    result, i, j = [], 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+
+-- Find top spenders by month
+SELECT
+    DATE_TRUNC('month', o.created_at) AS month,
+    c.name,
+    SUM(o.total_cents) / 100.0 AS revenue
+FROM orders o
+JOIN customers c ON c.id = o.customer_id
+WHERE o.status = 'completed'
+GROUP BY 1, 2
+ORDER BY month DESC, revenue DESC
+LIMIT 100;
+
+
+async function fetchWithRetry(url, options = {}, retries = 3) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, options);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      if (attempt === retries) throw err;
+      await new Promise(r => setTimeout(r, 2 ** attempt * 100));
+    }
+  }
+}
+
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    result, i, j = [], 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+def fib_iter(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+
+
+-- Find top spenders by month
+SELECT
+    DATE_TRUNC('month', o.created_at) AS month,
+    c.name,
+    SUM(o.total_cents) / 100.0 AS revenue
+FROM orders o
+JOIN customers c ON c.id = o.customer_id
+WHERE o.status = 'completed'
+GROUP BY 1, 2
+ORDER BY month DESC, revenue DESC
+LIMIT 100;
+
+
+async function fetchWithRetry(url, options = {}, retries = 3) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, options);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      if (attempt === retries) throw err;
+      await new Promise(r => setTimeout(r, 2 ** attempt * 100));
+    }
+  }
+}
+
+
+-- Find top spenders by month
+SELECT
+    DATE_TRUNC('month', o.created_at) AS month,
+    c.name,
+    SUM(o.total_cents) / 100.0 AS revenue
+FROM orders o
+JOIN customers c ON c.id = o.customer_id
+WHERE o.status = 'completed'
+GROUP BY 1, 2
+ORDER BY month DESC, revenue DESC
+LIMIT 100;
+
+
+const debounce = (fn, wait = 300) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn.apply(this, args), wait);
+  };
+};
+
+
+from dataclasses import dataclass, field
+from typing import List, Optional
+
+
+@dataclass
+class User:
+    id: int
+    name: str
+    email: str
+    roles: List[str] = field(default_factory=list)
+
+    def has_role(self, role: str) -> bool:
+        return role in self.roles
+
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    result, i, j = [], 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+def fib_iter(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+
+
+-- Find top spenders by month
+SELECT
+    DATE_TRUNC('month', o.created_at) AS month,
+    c.name,
+    SUM(o.total_cents) / 100.0 AS revenue
+FROM orders o
+JOIN customers c ON c.id = o.customer_id
+WHERE o.status = 'completed'
+GROUP BY 1, 2
+ORDER BY month DESC, revenue DESC
+LIMIT 100;
+
+
+const debounce = (fn, wait = 300) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn.apply(this, args), wait);
+  };
+};
+
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    result, i, j = [], 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+
+const debounce = (fn, wait = 300) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn.apply(this, args), wait);
+  };
+};
+
+
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+def fib_iter(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        from collections import OrderedDict
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+
